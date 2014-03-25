@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="commands_mode">
+        <item>ASCII</item>
+        <item>HEX</item>
+    </string-array>
+
+    <string-array name="commands_ending">
+        <item>none</item>
+        <item>\\n</item>
+        <item>\\r\\n</item>
+    </string-array>
+
+</resources>

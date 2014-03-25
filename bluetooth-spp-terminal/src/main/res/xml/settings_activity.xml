@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Режим ввода команд -->
+    <PreferenceCategory android:title="@string/commands_mode">
+        <ListPreference
+            android:defaultValue="ASCII"
+            android:dialogTitle="@string/commands_mode"
+            android:entries="@array/commands_mode"
+            android:entryValues="@array/commands_mode"
+            android:key="@string/pref_commands_mode"
+            android:summary="@string/commands_mode_summary" />
+
+        <ListPreference
+            android:defaultValue="\\r\\n"
+            android:dialogTitle="@string/commands_mode"
+            android:entries="@array/commands_ending"
+            android:entryValues="@array/commands_ending"
+            android:key="@string/pref_commands_ending"
+            android:summary="@string/commands_ending_summary" />
+    </PreferenceCategory>
+
+    <!-- История команд -->
+    <PreferenceCategory android:title="@string/log_settings_category">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_log_timing"
+            android:summary="@string/log_time_summary"
+            android:title="@string/log_time" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_log_direction"
+            android:summary="@string/log_direction_summary"
+            android:title="@string/log_direction" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,10 @@
+Bluetooth-spp-terminal
+(based on Android Bluetooth chat sample)
+
+Features:
+=========
+ * Поиск и подключение к slave-устройству;
+ * Отправка команд в hex-режиме;
+ * ASCII/hex mode;
+ * Очистка и шаринг лога;
+ * Русский/английский интерфейс;
