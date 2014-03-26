@@ -217,6 +217,7 @@ public final class DeviceControlActivity extends BaseActivity {
         String result = Utils.getPrefence(this, getString(R.string.pref_commands_ending));
         if (result.equals("\\r\\n")) result = "\r\n";
         else if (result.equals("\\n")) result = "\n";
+        else if (result.equals("\\r")) result = "\r";
         else result = "";
         return result;
     }

@@ -8,6 +8,7 @@
     <string-array name="commands_ending">
         <item>none</item>
         <item>\\n</item>
+        <item>\\r</item>
         <item>\\r\\n</item>
     </string-array>
 
