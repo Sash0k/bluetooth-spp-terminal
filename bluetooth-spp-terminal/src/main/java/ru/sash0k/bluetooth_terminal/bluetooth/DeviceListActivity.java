@@ -98,11 +98,13 @@ public class DeviceListActivity extends Activity {
         Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices();
 
         if (pairedDevices != null && !pairedDevices.isEmpty()) {
+            pairedListView.setEnabled(true);
             findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
             for (BluetoothDevice device : pairedDevices) {
                 pairedDevicesAdapter.add(device.getName() + "\n" + device.getAddress());
             }
         } else {
+            pairedListView.setEnabled(false);
             String noDevices = getResources().getText(R.string.none_paired).toString();
             pairedDevicesAdapter.add(noDevices);
         }
