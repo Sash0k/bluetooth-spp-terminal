@@ -11,12 +11,12 @@
     <string name="menu_send">Отправить лог…</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_clear">Очистить историю команд</string>
-    <string name="search_message">Поиск устройств…</string>
 
+    <string name="select_device">Выбор устройства</string>
+    <string name="search_message">Поиск новых устройств…</string>
     <string name="title_paired_devices">Известные устройства</string>
     <string name="title_other_devices">Новые устройства</string>
     <string name="none_paired">Нет известных устройств</string>
-    <string name="select_device">Выбор устройства</string>
     <string name="none_found">Не найдено</string>
     <string name="command_hint">Введите команду</string>
     <string name="button_send">Отправить</string>
