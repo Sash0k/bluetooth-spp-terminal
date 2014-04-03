@@ -8,7 +8,6 @@
     <string name="pref_log_direction">pref_log_direction</string>
     <!-- prefence keys, no translation needed -->
 
-    <string name="empty_device_name">&lt;empty&gt;</string>
     <string name="app_name">Bluetooth terminal</string>
 
     <string name="msg_not_connected">not connected</string>
@@ -17,6 +16,7 @@
 
     <string name="action_search">Search</string>
     <string name="no_bt_support">Your device doesn\'t support bluetooth.</string>
+    <string name="empty_device_name">&lt;New device&gt;</string>
 
     <string name="menu_send">Send log…</string>
     <string name="menu_settings">Settings</string>

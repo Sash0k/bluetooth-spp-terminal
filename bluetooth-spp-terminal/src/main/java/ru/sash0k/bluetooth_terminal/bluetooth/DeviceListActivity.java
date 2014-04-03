@@ -169,7 +169,9 @@ public class DeviceListActivity extends Activity {
                     if ((!mNewDevicesSet.contains(address)) && (!mPairedDevicesSet.contains(address))) {
                         newDevicesListView.setEnabled(true);
                         mNewDevicesSet.add(address);
-                        mNewDevicesArrayAdapter.add(device.getName() + '\n' + device.getAddress());
+                        String name = device.getName();
+                        if ((name == null) || name.isEmpty()) name = getString(R.string.empty_device_name);
+                        mNewDevicesArrayAdapter.add(name + '\n' + device.getAddress());
                     }
                 } else {
                     Log.e(TAG, "Could not get parcelable extra from device: " + BluetoothDevice.EXTRA_DEVICE);
