@@ -54,7 +54,8 @@ public class DeviceListActivity extends Activity {
 
     private BluetoothAdapter mBtAdapter;
     private ArrayAdapter<String> mNewDevicesArrayAdapter;
-    private Set<String> mNewDevicesSet;
+    private Set<String> mNewDevicesSet = new HashSet<String>();
+    private Set<String> mPairedDevicesSet = new HashSet<String>();
 
     private Button scanButton;
 
@@ -77,7 +78,6 @@ public class DeviceListActivity extends Activity {
 
         ArrayAdapter<String> pairedDevicesAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
         mNewDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
-        mNewDevicesSet = new HashSet<String>();
 
         ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
         pairedListView.setAdapter(pairedDevicesAdapter);
@@ -101,7 +101,9 @@ public class DeviceListActivity extends Activity {
             pairedListView.setEnabled(true);
             findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
             for (BluetoothDevice device : pairedDevices) {
-                pairedDevicesAdapter.add(device.getName() + "\n" + device.getAddress());
+                final String address = device.getAddress();
+                mPairedDevicesSet.add(address);
+                pairedDevicesAdapter.add(device.getName() + '\n' + address);
             }
         } else {
             pairedListView.setEnabled(false);
@@ -163,9 +165,9 @@ public class DeviceListActivity extends Activity {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 if (device != null) {
                     String address = device.getAddress();
-                    if (!mNewDevicesSet.contains(address)) {
+                    if ((!mNewDevicesSet.contains(address)) && (!mPairedDevicesSet.contains(address))) {
                         mNewDevicesSet.add(address);
-                        mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                        mNewDevicesArrayAdapter.add(device.getName() + '\n' + device.getAddress());
                     }
                 } else {
                     Log.e(TAG, "Could not get parcelable extra from device: " + BluetoothDevice.EXTRA_DEVICE);
