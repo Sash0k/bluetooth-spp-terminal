@@ -57,6 +57,7 @@ public class DeviceListActivity extends Activity {
     private Set<String> mNewDevicesSet = new HashSet<String>();
     private Set<String> mPairedDevicesSet = new HashSet<String>();
 
+    private ListView newDevicesListView;
     private Button scanButton;
 
     @Override
@@ -83,7 +84,7 @@ public class DeviceListActivity extends Activity {
         pairedListView.setAdapter(pairedDevicesAdapter);
         pairedListView.setOnItemClickListener(mDeviceClickListener);
 
-        ListView newDevicesListView = (ListView) findViewById(R.id.new_devices);
+        newDevicesListView = (ListView) findViewById(R.id.new_devices);
         newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
         newDevicesListView.setOnItemClickListener(mDeviceClickListener);
 
@@ -166,6 +167,7 @@ public class DeviceListActivity extends Activity {
                 if (device != null) {
                     String address = device.getAddress();
                     if ((!mNewDevicesSet.contains(address)) && (!mPairedDevicesSet.contains(address))) {
+                        newDevicesListView.setEnabled(true);
                         mNewDevicesSet.add(address);
                         mNewDevicesArrayAdapter.add(device.getName() + '\n' + device.getAddress());
                     }
@@ -177,6 +179,7 @@ public class DeviceListActivity extends Activity {
                 if (mNewDevicesSet.isEmpty()) {
                     String noDevices = getResources().getText(R.string.none_found).toString();
                     mNewDevicesArrayAdapter.add(noDevices);
+                    newDevicesListView.setEnabled(false);
                 }
                 scanButton.setEnabled(true);
             }
