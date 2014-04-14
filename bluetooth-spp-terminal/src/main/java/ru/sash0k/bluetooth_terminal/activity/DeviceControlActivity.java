@@ -25,6 +25,7 @@ import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import ru.sash0k.bluetooth_terminal.Const;
 import ru.sash0k.bluetooth_terminal.DeviceData;
 import ru.sash0k.bluetooth_terminal.R;
 import ru.sash0k.bluetooth_terminal.Utils;
@@ -62,10 +63,11 @@ public final class DeviceControlActivity extends BaseActivity {
         MSG_CONNECTED = getString(R.string.msg_connected);
 
         setContentView(R.layout.activity_terminal);
-        getSupportActionBar().setSubtitle(MSG_NOT_CONNECTED);
+        getSupportActionBar().setSubtitle(isConnected() ? MSG_CONNECTED : MSG_NOT_CONNECTED);
 
         this.logTextView = (TextView) findViewById(R.id.log_textview);
         this.logTextView.setMovementMethod(new ScrollingMovementMethod());
+        if (savedInstanceState != null) logTextView.setText(savedInstanceState.getString(Const.TAG));
 
         this.commandEditText = (EditText) findViewById(R.id.command_edittext);
         // soft-keyboard send button
@@ -97,11 +99,21 @@ public final class DeviceControlActivity extends BaseActivity {
     }
     // ==========================================================================
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (logTextView != null) {
+            final String log = logTextView.getText().toString();
+            outState.putString(Const.TAG, log);
+        }
+    }
+    // ============================================================================
+
 
     /**
      * Проверка готовности соединения
      */
-    private boolean isConnectorReady() {
+    private boolean isConnected() {
         return (connector != null) && (connector.getState() == DeviceConnector.STATE_CONNECTED);
     }
     // ==========================================================================
@@ -157,7 +169,8 @@ public final class DeviceControlActivity extends BaseActivity {
 
             case R.id.menu_search:
                 if (super.isAdapterReady()) {
-                    startDeviceListActivity();
+                    if (isConnected()) stopConnection();
+                    else startDeviceListActivity();
                 } else {
                     Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
@@ -230,14 +243,6 @@ public final class DeviceControlActivity extends BaseActivity {
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopConnection();
-    }
-    // ============================================================================
-
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -296,7 +301,7 @@ public final class DeviceControlActivity extends BaseActivity {
             }
             byte[] command = (hexMode ? Utils.toHex(commandString) : commandString.getBytes());
             if (command_ending != null) command = Utils.concat(command, command_ending.getBytes());
-            if (isConnectorReady()) {
+            if (isConnected()) {
                 connector.write(command);
                 appendLog(commandString, hexMode, true);
             }

@@ -14,7 +14,7 @@
     <string name="msg_connecting">connecting…</string>
     <string name="msg_connected">connected</string>
 
-    <string name="action_search">Search</string>
+    <string name="action_bluetooth">on/off</string>
     <string name="no_bt_support">Your device doesn\'t support bluetooth.</string>
     <string name="empty_device_name">&lt;New device&gt;</string>
 
