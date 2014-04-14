@@ -25,7 +25,6 @@ import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ru.sash0k.bluetooth_terminal.Const;
 import ru.sash0k.bluetooth_terminal.DeviceData;
 import ru.sash0k.bluetooth_terminal.R;
 import ru.sash0k.bluetooth_terminal.Utils;
@@ -33,6 +32,9 @@ import ru.sash0k.bluetooth_terminal.bluetooth.DeviceConnector;
 import ru.sash0k.bluetooth_terminal.bluetooth.DeviceListActivity;
 
 public final class DeviceControlActivity extends BaseActivity {
+    private static final String DEVICE_NAME = "DEVICE_NAME";
+    private static final String LOG = "LOG";
+
     private static final SimpleDateFormat timeformat = new SimpleDateFormat("HH:mm:ss.SSS");
 
     private static String MSG_NOT_CONNECTED;
@@ -49,6 +51,7 @@ public final class DeviceControlActivity extends BaseActivity {
     private boolean hexMode;
     private boolean show_timings, show_direction;
     private String command_ending;
+    private String deviceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +66,14 @@ public final class DeviceControlActivity extends BaseActivity {
         MSG_CONNECTED = getString(R.string.msg_connected);
 
         setContentView(R.layout.activity_terminal);
-        getSupportActionBar().setSubtitle(isConnected() ? MSG_CONNECTED : MSG_NOT_CONNECTED);
+        if (isConnected() && (savedInstanceState != null)) {
+            getSupportActionBar().setSubtitle(savedInstanceState.getString(DEVICE_NAME));
+        } else getSupportActionBar().setSubtitle(MSG_NOT_CONNECTED);
 
         this.logTextView = (TextView) findViewById(R.id.log_textview);
         this.logTextView.setMovementMethod(new ScrollingMovementMethod());
-        if (savedInstanceState != null) logTextView.setText(savedInstanceState.getString(Const.TAG));
+        if (savedInstanceState != null)
+            logTextView.setText(savedInstanceState.getString(LOG));
 
         this.commandEditText = (EditText) findViewById(R.id.command_edittext);
         // soft-keyboard send button
@@ -102,9 +108,10 @@ public final class DeviceControlActivity extends BaseActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putString(DEVICE_NAME, deviceName);
         if (logTextView != null) {
             final String log = logTextView.getText().toString();
-            outState.putString(Const.TAG, log);
+            outState.putString(LOG, log);
         }
     }
     // ============================================================================
@@ -126,6 +133,7 @@ public final class DeviceControlActivity extends BaseActivity {
         if (connector != null) {
             connector.stop();
             connector = null;
+            deviceName = null;
         }
     }
     // ==========================================================================
@@ -270,10 +278,7 @@ public final class DeviceControlActivity extends BaseActivity {
      * Установка соединения с устройством
      */
     private void setupConnector(BluetoothDevice connectedDevice) {
-        if (connector != null) {
-            connector.stop();
-            connector = null;
-        }
+        stopConnection();
         try {
             String emptyName = getString(R.string.empty_device_name);
             DeviceData data = new DeviceData(connectedDevice, emptyName);
@@ -334,8 +339,14 @@ public final class DeviceControlActivity extends BaseActivity {
             logTextView.scrollTo(0, scrollAmount);
         else logTextView.scrollTo(0, 0);
     }
-    // ==========================================================================
+    // =========================================================================
 
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+        getSupportActionBar().setSubtitle(deviceName);
+    }
+    // ==========================================================================
 
     /**
      * Обработчик приёма данных от bluetooth-потока
@@ -382,7 +393,7 @@ public final class DeviceControlActivity extends BaseActivity {
                         break;
 
                     case MESSAGE_DEVICE_NAME:
-                        // stub
+                        activity.setDeviceName((String) msg.obj);
                         break;
 
                     case MESSAGE_WRITE:

@@ -48,6 +48,7 @@ public class DeviceConnector {
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
     private final Handler mHandler;
+    private final String deviceName;
     // ==========================================================================
 
 
@@ -55,6 +56,7 @@ public class DeviceConnector {
         mHandler = handler;
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         connectedDevice = btAdapter.getRemoteDevice(deviceData.getAddress());
+        deviceName = (deviceData.getName() == null) ? deviceData.getAddress() : deviceData.getName();
         mState = STATE_NONE;
     }
     // ==========================================================================
@@ -148,11 +150,12 @@ public class DeviceConnector {
             mConnectedThread = null;
         }
 
+        setState(STATE_CONNECTED);
+
         // Send the name of the connected device back to the UI Activity
-        Message msg = mHandler.obtainMessage(DeviceControlActivity.MESSAGE_DEVICE_NAME);
+        Message msg = mHandler.obtainMessage(DeviceControlActivity.MESSAGE_DEVICE_NAME, deviceName);
         mHandler.sendMessage(msg);
 
-        setState(STATE_CONNECTED);
         // Start the thread to manage the connection and perform transmissions
         mConnectedThread = new ConnectedThread(socket);
         mConnectedThread.start();
