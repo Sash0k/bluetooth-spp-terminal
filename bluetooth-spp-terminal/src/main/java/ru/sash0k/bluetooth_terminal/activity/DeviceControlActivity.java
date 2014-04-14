@@ -21,6 +21,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -37,7 +38,8 @@ public final class DeviceControlActivity extends BaseActivity {
     private static String MSG_CONNECTING;
     private static String MSG_CONNECTED;
 
-    private DeviceConnector connector;
+    private static DeviceConnector connector;
+    private static BluetoothResponseHandler mHandler;
 
     private TextView logTextView;
     private EditText commandEditText;
@@ -51,6 +53,9 @@ public final class DeviceControlActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PreferenceManager.setDefaultValues(this, R.xml.settings_activity, false);
+
+        if (mHandler == null) mHandler = new BluetoothResponseHandler(this);
+        else mHandler.setTarget(this);
 
         MSG_NOT_CONNECTED = getString(R.string.msg_not_connected);
         MSG_CONNECTING = getString(R.string.msg_connecting);
@@ -306,7 +311,7 @@ public final class DeviceControlActivity extends BaseActivity {
      * @param message  - текст для отображения
      * @param outgoing - направление передачи
      */
-    private void appendLog(String message, boolean hexMode, boolean outgoing) {
+    public void appendLog(String message, boolean hexMode, boolean outgoing) {
 
         StringBuilder msg = new StringBuilder();
         if (show_timings) msg.append("[").append(timeformat.format(new Date())).append("]");
@@ -330,47 +335,61 @@ public final class DeviceControlActivity extends BaseActivity {
     /**
      * Обработчик приёма данных от bluetooth-потока
      */
-    private final Handler mHandler = new Handler() {
+    private static class BluetoothResponseHandler extends Handler {
+        private WeakReference<DeviceControlActivity> mActivity;
+
+        public BluetoothResponseHandler(DeviceControlActivity activity) {
+            mActivity = new WeakReference<DeviceControlActivity>(activity);
+        }
+
+        public void setTarget(DeviceControlActivity target) {
+            mActivity.clear();
+            mActivity = new WeakReference<DeviceControlActivity>(target);
+        }
+
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MESSAGE_STATE_CHANGE:
+            DeviceControlActivity activity = mActivity.get();
+            if (activity != null) {
+                switch (msg.what) {
+                    case MESSAGE_STATE_CHANGE:
 
-                    Utils.log("MESSAGE_STATE_CHANGE: " + msg.arg1);
-                    final ActionBar bar = getSupportActionBar();
-                    switch (msg.arg1) {
-                        case DeviceConnector.STATE_CONNECTED:
-                            bar.setSubtitle(MSG_CONNECTED);
-                            break;
-                        case DeviceConnector.STATE_CONNECTING:
-                            bar.setSubtitle(MSG_CONNECTING);
-                            break;
-                        case DeviceConnector.STATE_NONE:
-                            bar.setSubtitle(MSG_NOT_CONNECTED);
-                            break;
-                    }
-                    break;
+                        Utils.log("MESSAGE_STATE_CHANGE: " + msg.arg1);
+                        final ActionBar bar = activity.getSupportActionBar();
+                        switch (msg.arg1) {
+                            case DeviceConnector.STATE_CONNECTED:
+                                bar.setSubtitle(MSG_CONNECTED);
+                                break;
+                            case DeviceConnector.STATE_CONNECTING:
+                                bar.setSubtitle(MSG_CONNECTING);
+                                break;
+                            case DeviceConnector.STATE_NONE:
+                                bar.setSubtitle(MSG_NOT_CONNECTED);
+                                break;
+                        }
+                        break;
 
-                case MESSAGE_READ:
-                    final String readMessage = (String) msg.obj;
-                    if (readMessage != null) {
-                        appendLog(readMessage, false, false);
-                    }
-                    break;
+                    case MESSAGE_READ:
+                        final String readMessage = (String) msg.obj;
+                        if (readMessage != null) {
+                            activity.appendLog(readMessage, false, false);
+                        }
+                        break;
 
-                case MESSAGE_DEVICE_NAME:
-                    // stub
-                    break;
+                    case MESSAGE_DEVICE_NAME:
+                        // stub
+                        break;
 
-                case MESSAGE_WRITE:
-                    // stub
-                    break;
+                    case MESSAGE_WRITE:
+                        // stub
+                        break;
 
-                case MESSAGE_TOAST:
-                    // stub
-                    break;
+                    case MESSAGE_TOAST:
+                        // stub
+                        break;
+                }
             }
         }
-    };
+    }
     // ==========================================================================
 }
