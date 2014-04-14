@@ -33,7 +33,7 @@ import ru.sash0k.bluetooth_terminal.bluetooth.DeviceConnector;
 import ru.sash0k.bluetooth_terminal.bluetooth.DeviceListActivity;
 
 public final class DeviceControlActivity extends BaseActivity {
-    private static final SimpleDateFormat timeformat = new SimpleDateFormat("HH:mm:ss.S");
+    private static final SimpleDateFormat timeformat = new SimpleDateFormat("HH:mm:ss.SSS");
 
     private static String MSG_NOT_CONNECTED;
     private static String MSG_CONNECTING;
