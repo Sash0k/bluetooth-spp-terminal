@@ -43,8 +43,8 @@ public class DeviceConnector {
 
     private int mState;
 
-    private BluetoothAdapter btAdapter;
-    private BluetoothDevice connectedDevice;
+    private final BluetoothAdapter btAdapter;
+    private final BluetoothDevice connectedDevice;
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
     private final Handler mHandler;
@@ -162,13 +162,6 @@ public class DeviceConnector {
     }
     // ==========================================================================
 
-
-    /**
-     * Отправка команды устройству
-     */
-    public void write(byte data) {
-        write(new byte[]{data});
-    }
 
     public void write(byte[] data) {
         ConnectedThread r;

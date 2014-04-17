@@ -17,8 +17,8 @@ import ru.sash0k.bluetooth_terminal.Utils;
 public abstract class BaseActivity extends SherlockActivity {
 
     // Intent request codes
-    public static final int REQUEST_CONNECT_DEVICE = 1;
-    public static final int REQUEST_ENABLE_BT = 2;
+    static final int REQUEST_CONNECT_DEVICE = 1;
+    static final int REQUEST_ENABLE_BT = 2;
 
     // Message types sent from the DeviceConnector Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -27,13 +27,13 @@ public abstract class BaseActivity extends SherlockActivity {
     public static final int MESSAGE_DEVICE_NAME = 4;
     public static final int MESSAGE_TOAST = 5;
 
-    protected BluetoothAdapter btAdapter;
+    BluetoothAdapter btAdapter;
 
     private static final String SAVED_PENDING_REQUEST_ENABLE_BT = "PENDING_REQUEST_ENABLE_BT";
     // do not resend request to enable Bluetooth
     // if there is a request already in progress
     // See: https://code.google.com/p/android/issues/detail?id=24931#c1
-    protected boolean pendingRequestEnableBt = false;
+    boolean pendingRequestEnableBt = false;
     // ==========================================================================
 
     @Override
@@ -76,22 +76,8 @@ public abstract class BaseActivity extends SherlockActivity {
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-    // ==========================================================================
-
-
-    @Override
     public synchronized void onPause() {
         super.onPause();
-    }
-    // ==========================================================================
-
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
     // ==========================================================================
 
@@ -109,7 +95,7 @@ public abstract class BaseActivity extends SherlockActivity {
      *
      * @return - true, если готов к работе
      */
-    protected boolean isAdapterReady() {
+    boolean isAdapterReady() {
         return (btAdapter != null) && (btAdapter.isEnabled());
     }
     // ==========================================================================
@@ -121,7 +107,7 @@ public abstract class BaseActivity extends SherlockActivity {
      *
      * @param message - сообщение
      */
-    protected void showAlertDialog(String message) {
+    void showAlertDialog(String message) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(getString(R.string.app_name));
         alertDialogBuilder.setMessage(message);

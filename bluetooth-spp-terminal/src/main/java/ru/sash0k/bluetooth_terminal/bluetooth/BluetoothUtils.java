@@ -15,7 +15,7 @@ public class BluetoothUtils {
     private static final String TAG = "BluetoothUtils";
     private static final boolean D = true;
 
-    private static Map<String, String> uuidsDescriptions = new HashMap<String, String>();
+    private static final Map<String, String> uuidsDescriptions = new HashMap<String, String>();
 
     static {
         uuidsDescriptions.put("0001", "SDP");
@@ -139,7 +139,7 @@ public class BluetoothUtils {
     }
 
 
-    public static ArrayList<String> getDeviceServices(ArrayList<ParcelUuid> uuids) {
+    private static ArrayList<String> getDeviceServices(ArrayList<ParcelUuid> uuids) {
         ArrayList<String> result = new ArrayList<String>();
         for (ParcelUuid uuid : uuids) {
             String s = uuid.toString().toUpperCase();

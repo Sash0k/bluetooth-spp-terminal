@@ -1,9 +1,7 @@
 package ru.sash0k.bluetooth_terminal;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.text.InputFilter;
 import android.text.Spanned;

@@ -50,12 +50,12 @@ public class DeviceListActivity extends Activity {
     private static final String TAG = "DeviceListActivity";
     private static final boolean D = false;
 
-    public static String EXTRA_DEVICE_ADDRESS = "device_address";
+    public static final String EXTRA_DEVICE_ADDRESS = "device_address";
 
     private BluetoothAdapter mBtAdapter;
     private ArrayAdapter<String> mNewDevicesArrayAdapter;
-    private Set<String> mNewDevicesSet = new HashSet<String>();
-    private Set<String> mPairedDevicesSet = new HashSet<String>();
+    private final Set<String> mNewDevicesSet = new HashSet<String>();
+    private final Set<String> mPairedDevicesSet = new HashSet<String>();
 
     private ListView newDevicesListView;
     private Button scanButton;
@@ -138,7 +138,7 @@ public class DeviceListActivity extends Activity {
         mBtAdapter.startDiscovery();
     }
 
-    private OnItemClickListener mDeviceClickListener = new OnItemClickListener() {
+    private final OnItemClickListener mDeviceClickListener = new OnItemClickListener() {
         public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
             // Cancel discovery because it's costly and we're about to connect
             mBtAdapter.cancelDiscovery();

@@ -13,8 +13,8 @@ public class DeviceData {
     private String address = "";
     private int bondState = BluetoothDevice.BOND_NONE;
     private ArrayList<ParcelUuid> uuids = null;
-    private int deviceClass;
-    private int majorDeviceClass;
+    private final int deviceClass;
+    private final int majorDeviceClass;
 
     public DeviceData(BluetoothDevice device, String emptyName) {
         name = device.getName();

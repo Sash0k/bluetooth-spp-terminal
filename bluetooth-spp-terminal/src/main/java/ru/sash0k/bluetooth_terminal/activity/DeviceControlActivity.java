@@ -67,7 +67,7 @@ public final class DeviceControlActivity extends BaseActivity {
 
         setContentView(R.layout.activity_terminal);
         if (isConnected() && (savedInstanceState != null)) {
-            getSupportActionBar().setSubtitle(savedInstanceState.getString(DEVICE_NAME));
+            setDeviceName(savedInstanceState.getString(DEVICE_NAME));
         } else getSupportActionBar().setSubtitle(MSG_NOT_CONNECTED);
 
         this.logTextView = (TextView) findViewById(R.id.log_textview);
@@ -322,7 +322,7 @@ public final class DeviceControlActivity extends BaseActivity {
      * @param message  - текст для отображения
      * @param outgoing - направление передачи
      */
-    public void appendLog(String message, boolean hexMode, boolean outgoing, boolean clean) {
+    void appendLog(String message, boolean hexMode, boolean outgoing, boolean clean) {
 
         StringBuilder msg = new StringBuilder();
         if (show_timings) msg.append("[").append(timeformat.format(new Date())).append("]");
@@ -345,7 +345,7 @@ public final class DeviceControlActivity extends BaseActivity {
     // =========================================================================
 
 
-    public void setDeviceName(String deviceName) {
+    void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
         getSupportActionBar().setSubtitle(deviceName);
     }
