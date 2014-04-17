@@ -32,4 +32,7 @@
     <string name="commands_mode">Режим ввода:</string>
     <string name="commands_mode_summary">Выберите режим ввода команд</string>
     <string name="commands_ending_summary">Признак окончания команды</string>
+
+    <string name="need_clean">Очищать предыдущую команду</string>
+    <string name="need_clean_summary">Удалять команду из поля ввода после отправки</string>
 </resources>

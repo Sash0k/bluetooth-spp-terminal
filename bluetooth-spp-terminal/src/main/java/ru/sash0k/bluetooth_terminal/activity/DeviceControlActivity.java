@@ -48,7 +48,7 @@ public final class DeviceControlActivity extends BaseActivity {
     private EditText commandEditText;
 
     // Настройки приложения
-    private boolean hexMode;
+    private boolean hexMode, needClean;
     private boolean show_timings, show_direction;
     private String command_ending;
     private String deviceName;
@@ -232,6 +232,7 @@ public final class DeviceControlActivity extends BaseActivity {
         // Формат отображения лога команд
         this.show_timings = Utils.getBooleanPrefence(this, getString(R.string.pref_log_timing));
         this.show_direction = Utils.getBooleanPrefence(this, getString(R.string.pref_log_direction));
+        this.needClean = Utils.getBooleanPrefence(this, getString(R.string.pref_need_clean));
     }
     // ============================================================================
 
@@ -308,7 +309,7 @@ public final class DeviceControlActivity extends BaseActivity {
             if (command_ending != null) command = Utils.concat(command, command_ending.getBytes());
             if (isConnected()) {
                 connector.write(command);
-                appendLog(commandString, hexMode, true);
+                appendLog(commandString, hexMode, true, needClean);
             }
         }
     }
@@ -321,7 +322,7 @@ public final class DeviceControlActivity extends BaseActivity {
      * @param message  - текст для отображения
      * @param outgoing - направление передачи
      */
-    public void appendLog(String message, boolean hexMode, boolean outgoing) {
+    public void appendLog(String message, boolean hexMode, boolean outgoing, boolean clean) {
 
         StringBuilder msg = new StringBuilder();
         if (show_timings) msg.append("[").append(timeformat.format(new Date())).append("]");
@@ -338,6 +339,8 @@ public final class DeviceControlActivity extends BaseActivity {
         if (scrollAmount > 0)
             logTextView.scrollTo(0, scrollAmount);
         else logTextView.scrollTo(0, 0);
+
+        if (clean) commandEditText.setText("");
     }
     // =========================================================================
 
@@ -388,7 +391,7 @@ public final class DeviceControlActivity extends BaseActivity {
                     case MESSAGE_READ:
                         final String readMessage = (String) msg.obj;
                         if (readMessage != null) {
-                            activity.appendLog(readMessage, false, false);
+                            activity.appendLog(readMessage, false, false, activity.needClean);
                         }
                         break;
 

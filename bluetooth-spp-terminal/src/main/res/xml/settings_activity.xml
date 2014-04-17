@@ -18,6 +18,12 @@
             android:entryValues="@array/commands_ending"
             android:key="@string/pref_commands_ending"
             android:summary="@string/commands_ending_summary" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_need_clean"
+            android:summary="@string/need_clean_summary"
+            android:title="@string/need_clean" />
     </PreferenceCategory>
 
     <!-- История команд -->
