@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Bluetooth-spp-terminal.iml" filepath="$PROJECT_DIR$/Bluetooth-spp-terminal.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bluetooth-spp-terminal/bluetooth-spp-terminal.iml" filepath="$PROJECT_DIR$/bluetooth-spp-terminal/bluetooth-spp-terminal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bluetooth-spp-terminal.iml" filepath="$PROJECT_DIR$/bluetooth-spp-terminal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bluetooth-spp-terminal/bluetooth-spp-terminal-bluetooth-spp-terminal.iml" filepath="$PROJECT_DIR$/bluetooth-spp-terminal/bluetooth-spp-terminal-bluetooth-spp-terminal.iml" />
     </modules>
   </component>
 </project>
