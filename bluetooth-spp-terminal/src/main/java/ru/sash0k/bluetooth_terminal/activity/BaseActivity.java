@@ -1,11 +1,10 @@
 package ru.sash0k.bluetooth_terminal.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.actionbarsherlock.app.SherlockActivity;
 
 import ru.sash0k.bluetooth_terminal.R;
 import ru.sash0k.bluetooth_terminal.Utils;
@@ -14,7 +13,7 @@ import ru.sash0k.bluetooth_terminal.Utils;
  * Общий базовый класс. Инициализация BT-адаптера
  * Created by sash0k on 09.12.13.
  */
-public abstract class BaseActivity extends SherlockActivity {
+public abstract class BaseActivity extends Activity {
 
     // Intent request codes
     static final int REQUEST_CONNECT_DEVICE = 1;
@@ -39,7 +38,7 @@ public abstract class BaseActivity extends SherlockActivity {
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
-        getSupportActionBar().setHomeButtonEnabled(false);
+        getActionBar().setHomeButtonEnabled(false);
 
         if (state != null) {
             pendingRequestEnableBt = state.getBoolean(SAVED_PENDING_REQUEST_ENABLE_BT);

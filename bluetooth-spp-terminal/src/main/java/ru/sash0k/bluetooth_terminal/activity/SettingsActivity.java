@@ -1,14 +1,13 @@
 package ru.sash0k.bluetooth_terminal.activity;
 
+import android.app.ActionBar;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.MenuItem;
+import android.view.MenuItem;
 
 import ru.sash0k.bluetooth_terminal.R;
 
@@ -17,7 +16,7 @@ import ru.sash0k.bluetooth_terminal.R;
  * Настройки приложения
  */
 @SuppressWarnings("deprecation")
-public final class SettingsActivity extends SherlockPreferenceActivity
+public final class SettingsActivity extends PreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 
@@ -26,7 +25,7 @@ public final class SettingsActivity extends SherlockPreferenceActivity
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings_activity);
 
-        final ActionBar bar = getSupportActionBar();
+        final ActionBar bar = getActionBar();
         bar.setHomeButtonEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
 

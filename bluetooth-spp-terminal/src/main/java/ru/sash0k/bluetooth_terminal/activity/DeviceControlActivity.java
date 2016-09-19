@@ -1,5 +1,6 @@
 package ru.sash0k.bluetooth_terminal.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -12,14 +13,12 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.method.ScrollingMovementMethod;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -68,7 +67,7 @@ public final class DeviceControlActivity extends BaseActivity {
         setContentView(R.layout.activity_terminal);
         if (isConnected() && (savedInstanceState != null)) {
             setDeviceName(savedInstanceState.getString(DEVICE_NAME));
-        } else getSupportActionBar().setSubtitle(MSG_NOT_CONNECTED);
+        } else getActionBar().setSubtitle(MSG_NOT_CONNECTED);
 
         this.logTextView = (TextView) findViewById(R.id.log_textview);
         this.logTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -165,7 +164,7 @@ public final class DeviceControlActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.device_control_activity, menu);
+        getMenuInflater().inflate(R.menu.device_control_activity, menu);
         return true;
     }
     // ============================================================================
@@ -347,7 +346,7 @@ public final class DeviceControlActivity extends BaseActivity {
 
     void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
-        getSupportActionBar().setSubtitle(deviceName);
+        getActionBar().setSubtitle(deviceName);
     }
     // ==========================================================================
 
@@ -374,7 +373,7 @@ public final class DeviceControlActivity extends BaseActivity {
                     case MESSAGE_STATE_CHANGE:
 
                         Utils.log("MESSAGE_STATE_CHANGE: " + msg.arg1);
-                        final ActionBar bar = activity.getSupportActionBar();
+                        final ActionBar bar = activity.getActionBar();
                         switch (msg.arg1) {
                             case DeviceConnector.STATE_CONNECTED:
                                 bar.setSubtitle(MSG_CONNECTED);

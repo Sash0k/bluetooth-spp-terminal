@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.2"
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 15
         targetSdkVersion 22
 
         versionCode 1
@@ -23,8 +23,4 @@ android {
             zipAlignEnabled true
         }
     }
-}
-
-dependencies {
-    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
 }
