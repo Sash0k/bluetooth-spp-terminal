@@ -165,6 +165,10 @@ public final class DeviceControlActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.device_control_activity, menu);
+        final MenuItem bluetooth = menu.findItem(R.id.menu_search);
+        if (bluetooth != null) bluetooth.setIcon(this.isConnected() ?
+                R.drawable.ic_action_device_bluetooth_connected :
+                R.drawable.ic_action_device_bluetooth);
         return true;
     }
     // ============================================================================
@@ -385,6 +389,7 @@ public final class DeviceControlActivity extends BaseActivity {
                                 bar.setSubtitle(MSG_NOT_CONNECTED);
                                 break;
                         }
+                        activity.invalidateOptionsMenu();
                         break;
 
                     case MESSAGE_READ:
