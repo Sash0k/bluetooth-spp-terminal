@@ -3,6 +3,7 @@
 
     <!-- prefence keys, no translation needed -->
     <string name="pref_commands_mode">pref_commands_mode</string>
+    <string name="pref_checksum_mode">pref_checksum_mode</string>
     <string name="pref_commands_ending">pref_commands_ending</string>
     <string name="pref_answer_ending">pref_answer_ending</string>
     <string name="pref_log_timing">pref_log_timing</string>
@@ -42,6 +43,8 @@
     <string name="log_direction_summary">Show I/O direction in log</string>
 
     <string name="commands_mode">Input mode:</string>
+    <string name="checksum_mode">Checksum</string>
+    <string name="checksum_mode_summary">Add checksum to command</string>
     <string name="commands_mode_summary">Select input mode</string>
     <string name="commands_ending_summary">Select ending</string>
 

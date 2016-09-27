@@ -47,7 +47,7 @@ public final class DeviceControlActivity extends BaseActivity {
     private EditText commandEditText;
 
     // Настройки приложения
-    private boolean hexMode, needClean;
+    private boolean hexMode, checkSum, needClean;
     private boolean show_timings, show_direction;
     private String command_ending;
     private String deviceName;
@@ -220,7 +220,7 @@ public final class DeviceControlActivity extends BaseActivity {
 
         // hex mode
         final String mode = Utils.getPrefence(this, getString(R.string.pref_commands_mode));
-        this.hexMode = mode.equals("HEX");
+        this.hexMode = "HEX".equals(mode);
         if (hexMode) {
             commandEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
             commandEditText.setFilters(new InputFilter[]{new Utils.InputFilterHex()});
@@ -228,6 +228,10 @@ public final class DeviceControlActivity extends BaseActivity {
             commandEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
             commandEditText.setFilters(new InputFilter[]{});
         }
+
+        // checksum
+        final String checkSum = Utils.getPrefence(this, getString(R.string.pref_checksum_mode));
+        this.checkSum = "Modulo 256".equals(checkSum);
 
         // Окончание строки
         this.command_ending = getEnding(R.string.pref_commands_ending);
@@ -309,6 +313,16 @@ public final class DeviceControlActivity extends BaseActivity {
                 commandString = "0" + commandString;
                 commandEditText.setText(commandString);
             }
+
+            // checksum
+            if (checkSum) {
+                int crc = 0;
+                for (int i = 0; i< commandString.length(); i++) {
+                    crc += (int)commandString.charAt(i);
+                }
+                commandString += Integer.toHexString(Utils.mod(crc, 256));
+            }
+
             byte[] command = (hexMode ? Utils.toHex(commandString) : commandString.getBytes());
             if (command_ending != null) command = Utils.concat(command, command_ending.getBytes());
             if (isConnected()) {

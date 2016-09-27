@@ -5,6 +5,11 @@
         <item>HEX</item>
     </string-array>
 
+    <string-array name="checksum_mode">
+        <item>none</item>
+        <item>Modulo 256</item>
+    </string-array>
+
     <string-array name="commands_ending">
         <item>none</item>
         <item>\\n</item>

@@ -30,6 +30,8 @@
     <string name="log_direction_summary">Отображать входящее/исходящще направление в логе</string>
 
     <string name="commands_mode">Режим ввода:</string>
+    <string name="checksum_mode">Контрольная сумма</string>
+    <string name="checksum_mode_summary">Добавлять контрольную сумму</string>
     <string name="commands_mode_summary">Выберите режим ввода команд</string>
     <string name="commands_ending_summary">Признак окончания команды</string>
 
