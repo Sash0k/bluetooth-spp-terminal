@@ -49,6 +49,8 @@ public class DeviceConnector {
     private ConnectedThread mConnectedThread;
     private final Handler mHandler;
     private final String deviceName;
+
+    private String answerEndingFlag = "\n";
     // ==========================================================================
 
 
@@ -162,6 +164,11 @@ public class DeviceConnector {
     }
     // ==========================================================================
 
+    public synchronized void setEnding(String value) {
+        if (D) Log.d(TAG, "setEnding = " + value);
+        answerEndingFlag = value;
+    }
+    // ==========================================================================
 
     public void write(byte[] data) {
         ConnectedThread r;
@@ -329,7 +336,7 @@ public class DeviceConnector {
                     readMessage.append(readed);
 
                     // маркер конца команды - вернуть ответ в главный поток
-                    if (readed.contains("\n")) {
+                    if (readed.contains(answerEndingFlag)) {
                         mHandler.obtainMessage(DeviceControlActivity.MESSAGE_READ, bytes, -1, readMessage.toString()).sendToTarget();
                         readMessage.setLength(0);
                     }

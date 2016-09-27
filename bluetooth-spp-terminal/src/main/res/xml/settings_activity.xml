@@ -26,6 +26,17 @@
             android:title="@string/need_clean" />
     </PreferenceCategory>
 
+    <!-- Ответ -->
+    <PreferenceCategory android:title="@string/answer_mode">
+        <ListPreference
+            android:defaultValue="\\n"
+            android:dialogTitle="@string/answer_mode"
+            android:entries="@array/answers_ending"
+            android:entryValues="@array/answers_ending"
+            android:key="@string/pref_answer_ending"
+            android:summary="@string/answer_ending_summary" />
+    </PreferenceCategory>
+
     <!-- История команд -->
     <PreferenceCategory android:title="@string/log_settings_category">
         <CheckBoxPreference

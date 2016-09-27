@@ -4,6 +4,7 @@
     <!-- prefence keys, no translation needed -->
     <string name="pref_commands_mode">pref_commands_mode</string>
     <string name="pref_commands_ending">pref_commands_ending</string>
+    <string name="pref_answer_ending">pref_answer_ending</string>
     <string name="pref_log_timing">pref_log_timing</string>
     <string name="pref_log_direction">pref_log_direction</string>
     <string name="pref_need_clean">pref_need_clean</string>
@@ -43,6 +44,9 @@
     <string name="commands_mode">Input mode:</string>
     <string name="commands_mode_summary">Select input mode</string>
     <string name="commands_ending_summary">Select ending</string>
+
+    <string name="answer_mode">Answer mode:</string>
+    <string name="answer_ending_summary">Select answer ending</string>
 
     <string name="need_clean">Clear previous command</string>
     <string name="need_clean_summary">Cleanup command view after sending</string>

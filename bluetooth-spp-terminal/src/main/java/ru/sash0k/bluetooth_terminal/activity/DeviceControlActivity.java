@@ -230,7 +230,8 @@ public final class DeviceControlActivity extends BaseActivity {
         }
 
         // Окончание строки
-        this.command_ending = getCommandEnding();
+        this.command_ending = getEnding(R.string.pref_commands_ending);
+        if (connector != null) connector.setEnding(getEnding(R.string.pref_answer_ending));
 
         // Формат отображения лога команд
         this.show_timings = Utils.getBooleanPrefence(this, getString(R.string.pref_log_timing));
@@ -243,8 +244,8 @@ public final class DeviceControlActivity extends BaseActivity {
     /**
      * Получить из настроек признак окончания команды
      */
-    private String getCommandEnding() {
-        String result = Utils.getPrefence(this, getString(R.string.pref_commands_ending));
+    private String getEnding(int resourceId) {
+        String result = Utils.getPrefence(this, getString(resourceId));
         if (result.equals("\\r\\n")) result = "\r\n";
         else if (result.equals("\\n")) result = "\n";
         else if (result.equals("\\r")) result = "\r";
