@@ -48,6 +48,7 @@ public final class DeviceControlActivity extends BaseActivity {
     private static DeviceConnector connector;
     private static BluetoothResponseHandler mHandler;
 
+    private StringBuilder logHtml;
     private TextView logTextView;
     private EditText commandEditText;
 
@@ -74,10 +75,12 @@ public final class DeviceControlActivity extends BaseActivity {
             setDeviceName(savedInstanceState.getString(DEVICE_NAME));
         } else getActionBar().setSubtitle(MSG_NOT_CONNECTED);
 
+        this.logHtml = new StringBuilder();
+        if (savedInstanceState != null) this.logHtml.append(savedInstanceState.getString(LOG));
+
         this.logTextView = (TextView) findViewById(R.id.log_textview);
         this.logTextView.setMovementMethod(new ScrollingMovementMethod());
-        if (savedInstanceState != null)
-            logTextView.setText(savedInstanceState.getString(LOG));
+        this.logTextView.setText(Html.fromHtml(logHtml.toString()));
 
         this.commandEditText = (EditText) findViewById(R.id.command_edittext);
         // soft-keyboard send button
@@ -114,8 +117,7 @@ public final class DeviceControlActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
         outState.putString(DEVICE_NAME, deviceName);
         if (logTextView != null) {
-            final String log = logTextView.getText().toString();
-            outState.putString(LOG, log);
+            outState.putString(LOG, logHtml.toString());
         }
     }
     // ============================================================================
@@ -369,6 +371,8 @@ public final class DeviceControlActivity extends BaseActivity {
                 .append(checkSum ? Utils.mark(crc, crcOk ? CRC_OK : CRC_BAD) : "")
                 .append("</b>")
                 .append("<br>");
+
+        logHtml.append(msg);
         logTextView.append(Html.fromHtml(msg.toString()));
 
         final int scrollAmount = logTextView.getLayout().getLineTop(logTextView.getLineCount()) - logTextView.getHeight();
