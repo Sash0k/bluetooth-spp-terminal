@@ -17,9 +17,4 @@
         <item>\\r\\n</item>
     </string-array>
 
-    <string-array name="answers_ending">
-        <item>\\n</item>
-        <item>\\r</item>
-        <item>\\r\\n</item>
-    </string-array>
 </resources>

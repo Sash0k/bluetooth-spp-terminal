@@ -34,7 +34,6 @@ public final class SettingsActivity extends PreferenceActivity
         setPrefenceTitle(getString(R.string.pref_commands_mode));
         setPrefenceTitle(getString(R.string.pref_checksum_mode));
         setPrefenceTitle(getString(R.string.pref_commands_ending));
-        setPrefenceTitle(getString(R.string.pref_answer_ending));
     }
     // ============================================================================
 
