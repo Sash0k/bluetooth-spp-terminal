@@ -92,6 +92,19 @@ public class Utils {
     // ============================================================================
 
     /**
+     * Расчёт контрольной суммы
+     */
+    public static String calcModulo256(String command)
+    {
+        int crc = 0;
+        for (int i = 0; i< command.length(); i++) {
+            crc += (int)command.charAt(i);
+        }
+        return Integer.toHexString(Utils.mod(crc, 256));
+    }
+    // ============================================================================
+
+    /**
      * Получение id сохранённого в игрушке звукового набора
      */
     public static String getPrefence(Context context, String item) {

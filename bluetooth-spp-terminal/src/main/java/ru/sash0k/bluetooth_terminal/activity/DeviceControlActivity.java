@@ -315,11 +315,7 @@ public final class DeviceControlActivity extends BaseActivity {
 
             // checksum
             if (checkSum) {
-                int crc = 0;
-                for (int i = 0; i< commandString.length(); i++) {
-                    crc += (int)commandString.charAt(i);
-                }
-                commandString += Integer.toHexString(Utils.mod(crc, 256));
+                commandString += Utils.calcModulo256(commandString);
             }
 
             byte[] command = (hexMode ? Utils.toHex(commandString) : commandString.getBytes());
