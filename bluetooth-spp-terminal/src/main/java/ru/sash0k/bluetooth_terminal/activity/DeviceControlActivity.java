@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.method.ScrollingMovementMethod;
@@ -33,6 +34,10 @@ import ru.sash0k.bluetooth_terminal.bluetooth.DeviceListActivity;
 public final class DeviceControlActivity extends BaseActivity {
     private static final String DEVICE_NAME = "DEVICE_NAME";
     private static final String LOG = "LOG";
+
+    // Подсветка crc
+    private static final String CRC_OK = "#FFFF00";
+    private static final String CRC_BAD = "#FF0000";
 
     private static final SimpleDateFormat timeformat = new SimpleDateFormat("HH:mm:ss.SSS");
 
@@ -344,9 +349,27 @@ public final class DeviceControlActivity extends BaseActivity {
             msg.append(arrow);
         } else msg.append(" ");
 
-        msg.append(hexMode ? Utils.printHex(message) : message);
-        if (outgoing) msg.append('\n');
-        logTextView.append(msg);
+        // Убрать символы переноса строки \r\n
+        message = message.replace("\r", "").replace("\n", "");
+
+        // Проверка контрольной суммы ответа
+        String crc = "";
+        boolean crcOk = false;
+        if (checkSum) {
+            int crcPos = message.length() - 2;
+            crc = message.substring(crcPos);
+            message = message.substring(0, crcPos);
+            crcOk = outgoing || crc.equals(Utils.calcModulo256(message).toUpperCase());
+            if (hexMode) crc = Utils.printHex(crc.toUpperCase());
+        }
+
+        // Лог в html
+        msg.append("<b>")
+                .append(hexMode ? Utils.printHex(message) : message)
+                .append(checkSum ? Utils.mark(crc, crcOk ? CRC_OK : CRC_BAD) : "")
+                .append("</b>")
+                .append("<br>");
+        logTextView.append(Html.fromHtml(msg.toString()));
 
         final int scrollAmount = logTextView.getLayout().getLineTop(logTextView.getLineCount()) - logTextView.getHeight();
         if (scrollAmount > 0)

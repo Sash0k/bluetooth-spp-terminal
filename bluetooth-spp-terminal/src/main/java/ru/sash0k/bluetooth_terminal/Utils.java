@@ -105,6 +105,14 @@ public class Utils {
     // ============================================================================
 
     /**
+     * Раскрасить текст нужным цветом
+     */
+    public static String mark(String text, String color) {
+        return "<font color=" + color + ">" + text + "</font>";
+    }
+    // ============================================================================
+
+    /**
      * Получение id сохранённого в игрушке звукового набора
      */
     public static String getPrefence(Context context, String item) {
