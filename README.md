@@ -1,4 +1,4 @@
-##Bluetooth-spp-terminal
+## Bluetooth-spp-terminal
 (based on Android Bluetooth chat sample)
 
 ### Features
@@ -19,7 +19,7 @@
 * on the [Play Store](https://play.google.com/store/apps/details?id=ru.sash0k.bluetooth_terminal).
 * directly on [GitHub](https://github.com/Sash0k/bluetooth-spp-terminal/releases).
 
-###License
+### License
 
 
     Licensed under the Apache License, Version 2.0 (the "License");
