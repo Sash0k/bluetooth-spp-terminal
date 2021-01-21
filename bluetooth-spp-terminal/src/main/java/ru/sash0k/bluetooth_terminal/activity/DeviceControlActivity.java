@@ -109,6 +109,20 @@ public final class DeviceControlActivity extends BaseActivity {
                 return false;
             }
         });
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+                if (sharedText != null) {
+                    EditText commandEditText = (EditText)findViewById(R.id.command_edittext);
+                    commandEditText.setText(sharedText);
+                }
+            }
+        }
     }
     // ==========================================================================
 
