@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/bluetooth-spp-terminal.iml" filepath="$PROJECT_DIR$/bluetooth-spp-terminal.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bluetooth-spp-terminal/bluetooth-spp-terminal-bluetooth-spp-terminal.iml" filepath="$PROJECT_DIR$/bluetooth-spp-terminal/bluetooth-spp-terminal-bluetooth-spp-terminal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bluetooth-spp-terminal/bluetooth-spp-terminal.bluetooth-spp-terminal.iml" filepath="$PROJECT_DIR$/.idea/modules/bluetooth-spp-terminal/bluetooth-spp-terminal.bluetooth-spp-terminal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bluetooth-spp-terminal/bluetooth-spp-terminal.bluetooth-spp-terminal.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/bluetooth-spp-terminal/bluetooth-spp-terminal.bluetooth-spp-terminal.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bluetooth-spp-terminal/bluetooth-spp-terminal.bluetooth-spp-terminal.main.iml" filepath="$PROJECT_DIR$/.idea/modules/bluetooth-spp-terminal/bluetooth-spp-terminal.bluetooth-spp-terminal.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bluetooth-spp-terminal/bluetooth-spp-terminal.bluetooth-spp-terminal.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/bluetooth-spp-terminal/bluetooth-spp-terminal.bluetooth-spp-terminal.unitTest.iml" />
     </modules>
   </component>
 </project>
