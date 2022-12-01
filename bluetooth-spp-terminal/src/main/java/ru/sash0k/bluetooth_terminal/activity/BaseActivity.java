@@ -1,9 +1,13 @@
 package ru.sash0k.bluetooth_terminal.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import ru.sash0k.bluetooth_terminal.R;
@@ -40,6 +44,16 @@ public abstract class BaseActivity extends Activity {
         super.onCreate(state);
         getActionBar().setHomeButtonEnabled(false);
 
+        final String permission;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            permission = Manifest.permission.BLUETOOTH_CONNECT;
+        else
+            permission = Manifest.permission.BLUETOOTH;
+
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[] { permission }, REQUEST_ENABLE_BT);
+        }
+
         if (state != null) {
             pendingRequestEnableBt = state.getBoolean(SAVED_PENDING_REQUEST_ENABLE_BT);
         }
@@ -52,6 +66,16 @@ public abstract class BaseActivity extends Activity {
     }
     // ==========================================================================
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_ENABLE_BT && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            final String message = getString(R.string.no_permission);
+            showAlertDialog(message);
+            Utils.log(message);
+        }
+    }
 
     @Override
     public void onStart() {
@@ -111,6 +135,14 @@ public abstract class BaseActivity extends Activity {
         alertDialogBuilder.setTitle(getString(R.string.app_name));
         alertDialogBuilder.setMessage(message);
         AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.setCancelable(false);
+        alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+
         alertDialog.show();
     }
     // ==========================================================================

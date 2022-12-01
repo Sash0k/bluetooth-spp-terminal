@@ -18,6 +18,7 @@
 
     <string name="action_bluetooth">on/off</string>
     <string name="no_bt_support">Your device doesn\'t support bluetooth.</string>
+    <string name="no_permission">This application won\'t work without Bluetooth permission grant.</string>
     <string name="empty_device_name">&lt;New device&gt;</string>
 
     <string name="menu_send">Send log…</string>
@@ -25,7 +26,7 @@
     <string name="menu_clear">Clear history</string>
 
     <string name="select_device">Select device</string>
-    <string name="search_message">Search for devices…</string>
+    <string name="search_message">Pair new device…</string>
     <string name="title_paired_devices">Paired devices</string>
     <string name="title_other_devices">Other devices</string>
     <string name="none_paired">No paired devices</string>

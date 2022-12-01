@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.sash0k.bluetooth_terminal">
 
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-feature android:name="android.hardware.bluetooth" android:required="true"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,7 @@
 
         <activity
             android:name=".activity.DeviceControlActivity"
-            android:label="@string/app_name"
+            android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,10 +30,11 @@
 
         <activity
             android:name=".activity.SettingsActivity"
-            android:label="@string/app_name" />
+            android:exported="false" />
 
         <activity
             android:name=".bluetooth.DeviceListActivity"
+            android:exported="false"
             android:label="@string/select_device"
             android:theme="@style/DialogTheme" />
 

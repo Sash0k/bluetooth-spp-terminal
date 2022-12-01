@@ -6,6 +6,7 @@
     <string name="msg_connected">подключено</string>
 
     <string name="no_bt_support">Ваше устройство не поддерживает Bluetooth.</string>
+    <string name="no_permission">Приложение не будет работать без разрешения доступа к Bluetooth.</string>
     <string name="empty_device_name">&lt;Новое устройство&gt;</string>
 
     <string name="menu_send">Отправить лог…</string>
@@ -13,7 +14,7 @@
     <string name="menu_clear">Очистить историю команд</string>
 
     <string name="select_device">Выбор устройства</string>
-    <string name="search_message">Поиск новых устройств…</string>
+    <string name="search_message">Добавить устройство…</string>
     <string name="title_paired_devices">Известные устройства</string>
     <string name="title_other_devices">Новые устройства</string>
     <string name="none_paired">Нет известных устройств</string>

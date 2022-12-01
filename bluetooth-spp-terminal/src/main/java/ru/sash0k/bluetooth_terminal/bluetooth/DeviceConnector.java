@@ -226,7 +226,6 @@ public class DeviceConnector {
          */
         public void run() {
             if (D) Log.d(TAG, "ConnectThread run");
-            btAdapter.cancelDiscovery();
             if (mmSocket == null) {
                 if (D) Log.d(TAG, "unable to connect to device, socket isn't created");
                 connectionFailed();
