@@ -355,6 +355,7 @@ public final class DeviceControlActivity extends BaseActivity {
      *
      * @param message  - текст для отображения
      * @param outgoing - направление передачи
+     * @param clean - удалять команду из поля ввода после отправки
      */
     void appendLog(String message, boolean hexMode, boolean outgoing, boolean clean) {
 
@@ -446,7 +447,7 @@ public final class DeviceControlActivity extends BaseActivity {
                     case MESSAGE_READ:
                         final String readMessage = (String) msg.obj;
                         if (readMessage != null) {
-                            activity.appendLog(readMessage, false, false, activity.needClean);
+                            activity.appendLog(readMessage, false, false, false);
                         }
                         break;
 
