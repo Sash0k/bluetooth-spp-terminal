@@ -2,6 +2,13 @@
 (based on Android Bluetooth chat sample)
 
 ### Features
+#### v-1.2 (02.12.2022)
+ * Адаптация к современной модели разрешений (Android 12+);
+ * Сопряжение с устройствами через системный UI;
+ * Возможность ограничить размер лога сообщений (see: #5);
+ * Возможность передать входящую команду в приложение через intent/adb (see: #8);
+ * Исправлен баг с затиранием входящей команды;
+
 #### v-1.1 (03.11.2016)
  * Calc and check Modulo256 checksum;
  * Drop deprecated Android 2.x support;
@@ -15,6 +22,7 @@
  
 
 ### Download
+* в [ruStore](https://apps.rustore.ru/app/ru.sash0k.bluetooth_terminal).
 * on [F-Droid](https://f-droid.org/repository/browse/?fdid=ru.sash0k.bluetooth_terminal).
 * on the [Play Store](https://play.google.com/store/apps/details?id=ru.sash0k.bluetooth_terminal).
 * directly on [GitHub](https://github.com/Sash0k/bluetooth-spp-terminal/releases).
