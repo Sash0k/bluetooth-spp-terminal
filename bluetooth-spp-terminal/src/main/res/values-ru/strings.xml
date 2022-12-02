@@ -28,7 +28,7 @@
     <string name="log_time">Время</string>
     <string name="log_time_summary">Отображать время записи в лог</string>
     <string name="log_direction">Направление</string>
-    <string name="log_direction_summary">Отображать входящее/исходящще направление в логе</string>
+    <string name="log_direction_summary">Отображать входящее/исходящее направление в логе</string>
     <string name="log_limit">Лимит лога</string>
     <string name="log_limit_summary">Чистить лог при достижении максимального размера буфера</string>
     <string name="log_limit_size">Размер буфера (строк)</string>
