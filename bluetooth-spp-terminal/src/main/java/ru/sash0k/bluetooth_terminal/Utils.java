@@ -153,4 +153,14 @@ public class Utils {
         }
     }
     // ============================================================================
+
+    public static int formatNumber(String input) {
+        int value;
+        try {
+            value = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            value = 0;
+        }
+        return value;
+    }
 }

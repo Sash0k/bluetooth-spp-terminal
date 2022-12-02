@@ -53,7 +53,8 @@ public final class DeviceControlActivity extends BaseActivity {
     private EditText commandEditText;
 
     // Настройки приложения
-    private boolean hexMode, checkSum, needClean;
+    private int logLimitSize;
+    private boolean hexMode, checkSum, needClean, logLimit;
     private boolean show_timings, show_direction;
     private String command_ending;
     private String deviceName;
@@ -261,6 +262,8 @@ public final class DeviceControlActivity extends BaseActivity {
         this.show_timings = Utils.getBooleanPrefence(this, getString(R.string.pref_log_timing));
         this.show_direction = Utils.getBooleanPrefence(this, getString(R.string.pref_log_direction));
         this.needClean = Utils.getBooleanPrefence(this, getString(R.string.pref_need_clean));
+        this.logLimit = Utils.getBooleanPrefence(this, getString(R.string.pref_log_limit));
+        this.logLimitSize = Utils.formatNumber(Utils.getPrefence(this, getString(R.string.pref_log_limit_size)));
     }
     // ============================================================================
 
@@ -358,6 +361,11 @@ public final class DeviceControlActivity extends BaseActivity {
      * @param clean - удалять команду из поля ввода после отправки
      */
     void appendLog(String message, boolean hexMode, boolean outgoing, boolean clean) {
+
+        // если установлено ограничение на логи, проверить и почистить
+        if (this.logLimit && this.logLimitSize > 0 && logTextView.getLineCount() > this.logLimitSize) {
+            logTextView.setText("");
+        }
 
         StringBuilder msg = new StringBuilder();
         if (show_timings) msg.append("[").append(timeformat.format(new Date())).append("]");

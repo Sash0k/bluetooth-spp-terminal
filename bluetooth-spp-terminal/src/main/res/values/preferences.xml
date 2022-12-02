@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- preference keys, no translation needed -->
+    <string name="pref_commands_mode" translatable="false">pref_commands_mode</string>
+    <string name="pref_checksum_mode" translatable="false">pref_checksum_mode</string>
+    <string name="pref_commands_ending" translatable="false">pref_commands_ending</string>
+    <string name="pref_log_timing" translatable="false">pref_log_timing</string>
+    <string name="pref_log_direction" translatable="false">pref_log_direction</string>
+    <string name="pref_need_clean" translatable="false" >pref_need_clean</string>
+    <string name="pref_log_limit" translatable="false" >pref_log_limit</string>
+    <string name="pref_log_limit_size" translatable="false" >pref_log_limit_size</string>
+</resources>

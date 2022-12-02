@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- prefence keys, no translation needed -->
-    <string name="pref_commands_mode">pref_commands_mode</string>
-    <string name="pref_checksum_mode">pref_checksum_mode</string>
-    <string name="pref_commands_ending">pref_commands_ending</string>
-    <string name="pref_log_timing">pref_log_timing</string>
-    <string name="pref_log_direction">pref_log_direction</string>
-    <string name="pref_need_clean">pref_need_clean</string>
-    <!-- prefence keys, no translation needed -->
-
-    <string name="app_name">Bluetooth terminal</string>
+    <string name="app_name" translatable="false">Bluetooth terminal</string>
 
     <string name="msg_not_connected">not connected</string>
     <string name="msg_connecting">connecting…</string>
@@ -41,6 +31,9 @@
     <string name="log_time_summary">Show time in log</string>
     <string name="log_direction">Direction</string>
     <string name="log_direction_summary">Show I/O direction in log</string>
+    <string name="log_limit">Log limit</string>
+    <string name="log_limit_summary">Clear log on max size exceeded</string>
+    <string name="log_limit_size">Log buffer size (lines)</string>
 
     <string name="commands_mode">Input mode:</string>
     <string name="checksum_mode">Checksum</string>
