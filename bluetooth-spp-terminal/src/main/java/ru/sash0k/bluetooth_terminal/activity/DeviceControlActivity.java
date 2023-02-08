@@ -206,7 +206,7 @@ public final class DeviceControlActivity extends BaseActivity {
                     else startDeviceListActivity();
                 } else {
                     Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                    if (checkBluetoothPermission(REQUEST_ENABLE_BT)) startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
                 }
                 return true;
 

@@ -44,15 +44,7 @@ public abstract class BaseActivity extends Activity {
         super.onCreate(state);
         getActionBar().setHomeButtonEnabled(false);
 
-        final String permission;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-            permission = Manifest.permission.BLUETOOTH_CONNECT;
-        else
-            permission = Manifest.permission.BLUETOOTH;
-
-        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[] { permission }, REQUEST_ENABLE_BT);
-        }
+        checkBluetoothPermission(REQUEST_ENABLE_BT);
 
         if (state != null) {
             pendingRequestEnableBt = state.getBoolean(SAVED_PENDING_REQUEST_ENABLE_BT);
@@ -66,11 +58,31 @@ public abstract class BaseActivity extends Activity {
     }
     // ==========================================================================
 
+    protected boolean checkBluetoothPermission(int requestCode) {
+        final String permission;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            permission = Manifest.permission.BLUETOOTH_CONNECT;
+        else
+            permission = Manifest.permission.BLUETOOTH;
+
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{permission}, requestCode);
+            return false;
+        }
+
+        return true;
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_ENABLE_BT && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+        int grantResult;
+        if (grantResults.length > 0)
+            grantResult = grantResults[0];
+        else grantResult = PackageManager.PERMISSION_DENIED;
+
+    if (requestCode == REQUEST_ENABLE_BT && grantResult != PackageManager.PERMISSION_GRANTED) {
             final String message = getString(R.string.no_permission);
             showAlertDialog(message);
             Utils.log(message);
@@ -85,7 +97,7 @@ public abstract class BaseActivity extends Activity {
         if (!btAdapter.isEnabled() && !pendingRequestEnableBt) {
             pendingRequestEnableBt = true;
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+            if (checkBluetoothPermission(REQUEST_ENABLE_BT)) startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
         }
     }
     // ==========================================================================
@@ -131,9 +143,10 @@ public abstract class BaseActivity extends Activity {
      * @param message - сообщение
      */
     void showAlertDialog(String message) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle(getString(R.string.app_name));
-        alertDialogBuilder.setMessage(message);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.app_name))
+                .setMessage(message);
+
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.setCancelable(false);
         alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, getString(android.R.string.ok), new DialogInterface.OnClickListener() {
