@@ -35,7 +35,6 @@
         <activity
             android:name=".bluetooth.DeviceListActivity"
             android:exported="false"
-            android:label="@string/select_device"
             android:theme="@style/DialogTheme" />
 
     </application>

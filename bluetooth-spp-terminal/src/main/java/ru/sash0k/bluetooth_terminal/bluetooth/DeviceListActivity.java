@@ -76,7 +76,6 @@ public class DeviceListActivity extends Activity {
 
         if (pairedDevices != null && !pairedDevices.isEmpty()) {
             pairedListView.setEnabled(true);
-            findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
             for (BluetoothDevice device : pairedDevices) {
                 final String address = device.getAddress();
                 pairedDevicesAdapter.add(device.getName() + '\n' + address);
