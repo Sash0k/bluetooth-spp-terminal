@@ -1,0 +1,1 @@
+Terminal for Bluetooth SPP devices (HC-05, HC-06 and others)

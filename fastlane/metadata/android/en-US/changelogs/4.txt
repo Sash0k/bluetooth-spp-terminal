@@ -1,0 +1,2 @@
+* fix: permissions for Android 12+
+* feat: material theme
