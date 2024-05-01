@@ -1,3 +1,5 @@
+### Archived here. Project development has been continued in [GitFlic](https://gitflic.ru/project/sash0k/bluetooth-spp-terminal)
+
 ## Bluetooth-spp-terminal
 (based on Android Bluetooth chat sample)
 
